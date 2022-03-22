@@ -1,0 +1,24 @@
+{
+	"ClientNamespace": "My.Pet.Client",
+	"ClientLibraryProjectFolderName": "./PetShopCSharp",
+	"ContainerClassName": "PetClient",
+	"ClientLibraryFileName": "PetAuto.cs",
+	"ActionNameStrategy": 4,
+	"UseEnsureSuccessStatusCodeEx": true,
+	"DecorateDataModelWithDataContract": true,
+	"DataContractNamespace": "http://pet.domain/2020/03",
+	"DataAnnotationsEnabled": true,
+	"DataAnnotationsToComments": true,
+	"HandleHttpRequestHeaders": true,
+
+	"Plugins": [
+		{
+			"AssemblyName": "Fonlow.OpenApiClientGen.NG2",
+			"TargetDir": "./PetShopNG",
+			"TSFile": "ClientApiAuto.ts",
+			"AsModule": true,
+			"ContentType": "application/json;charset=UTF-8"
+		}
+	]
+
+}
