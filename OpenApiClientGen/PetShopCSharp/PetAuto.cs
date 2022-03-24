@@ -23,7 +23,7 @@ namespace My.Pet.Client
 	{
 		
 		[System.Runtime.Serialization.DataMember(Name="code")]
-		public System.Nullable<System.Int32> Code { get; set; }
+		public System.Int32? Code { get; set; }
 		
 		[System.Runtime.Serialization.DataMember(Name="type")]
 		public string Type { get; set; }
@@ -50,19 +50,20 @@ namespace My.Pet.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://pet.domain/2020/03")]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum CatHuntingSkill
 	{
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="clueless")]
 		clueless = 0,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="lazy")]
 		lazy = 1,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="adventurous")]
 		adventurous = 2,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="aggressive")]
 		aggressive = 3,
 	}
 	
@@ -74,7 +75,7 @@ namespace My.Pet.Client
 		/// Category ID
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="id")]
-		public System.Nullable<System.Int64> Id { get; set; }
+		public System.Int64? Id { get; set; }
 		
 		/// <summary>
 		/// Category name
@@ -144,38 +145,38 @@ namespace My.Pet.Client
 		/// Order ID
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="id")]
-		public System.Nullable<System.Int64> Id { get; set; }
+		public System.Int64? Id { get; set; }
 		
 		/// <summary>
 		/// Pet ID
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="petId")]
-		public System.Nullable<System.Int64> PetId { get; set; }
+		public System.Int64? PetId { get; set; }
 		
 		/// <summary>
 		/// Minimum: 1
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="quantity")]
 		[System.ComponentModel.DataAnnotations.Range(1, System.Int32.MaxValue)]
-		public System.Nullable<System.Int32> Quantity { get; set; }
+		public System.Int32? Quantity { get; set; }
 		
 		/// <summary>
 		/// Estimated ship date
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="shipDate")]
-		public System.Nullable<System.DateTimeOffset> ShipDate { get; set; }
+		public System.DateTimeOffset? ShipDate { get; set; }
 		
 		/// <summary>
 		/// Order Status
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="status")]
-		public System.Nullable<OrderStatus> Status { get; set; }
+		public OrderStatus? Status { get; set; }
 		
 		/// <summary>
 		/// Indicates whenever order was completed or not
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="complete")]
-		public System.Nullable<System.Boolean> Complete { get; set; }
+		public System.Boolean? Complete { get; set; }
 		
 		/// <summary>
 		/// Unique Request Id
@@ -185,16 +186,17 @@ namespace My.Pet.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://pet.domain/2020/03")]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum OrderStatus
 	{
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="placed")]
 		placed = 0,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="approved")]
 		approved = 1,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="delivered")]
 		delivered = 2,
 	}
 	
@@ -206,7 +208,7 @@ namespace My.Pet.Client
 		/// Pet ID
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="id")]
-		public System.Nullable<System.Int64> Id { get; set; }
+		public System.Int64? Id { get; set; }
 		
 		/// <summary>
 		/// Categories this pet belongs to
@@ -247,7 +249,7 @@ namespace My.Pet.Client
 		/// Pet status in the store
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="status")]
-		public System.Nullable<PetStatus> Status { get; set; }
+		public PetStatus? Status { get; set; }
 		
 		/// <summary>
 		/// Type of a pet
@@ -264,7 +266,7 @@ namespace My.Pet.Client
 		/// Tag ID
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="id")]
-		public System.Nullable<System.Int64> Id { get; set; }
+		public System.Int64? Id { get; set; }
 		
 		/// <summary>
 		/// Tag name
@@ -276,16 +278,17 @@ namespace My.Pet.Client
 	}
 	
 	[System.Runtime.Serialization.DataContract(Namespace="http://pet.domain/2020/03")]
+	[JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PetStatus
 	{
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="available")]
 		available = 0,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="pending")]
 		pending = 1,
 		
-		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[System.Runtime.Serialization.EnumMemberAttribute(Value="sold")]
 		sold = 2,
 	}
 	
@@ -294,7 +297,7 @@ namespace My.Pet.Client
 	{
 		
 		[System.Runtime.Serialization.DataMember(Name="id")]
-		public System.Nullable<System.Int64> Id { get; set; }
+		public System.Int64? Id { get; set; }
 		
 		[System.Runtime.Serialization.DataMember(Name="pet")]
 		public Pet Pet { get; set; }
@@ -349,7 +352,7 @@ namespace My.Pet.Client
 		/// User status
 		/// </summary>
 		[System.Runtime.Serialization.DataMember(Name="userStatus")]
-		public System.Nullable<System.Int32> UserStatus { get; set; }
+		public System.Int32? UserStatus { get; set; }
 	}
 	
 	public partial class PetClient

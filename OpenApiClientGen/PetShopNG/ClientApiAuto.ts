@@ -19,7 +19,7 @@ export namespace My_Pet_Client {
 		huntingSkill: CatHuntingSkill;
 	}
 
-	export enum CatHuntingSkill { clueless = 0, lazy = 1, adventurous = 2, aggressive = 3 }
+	export enum CatHuntingSkill { clueless = 'clueless', lazy = 'lazy', adventurous = 'adventurous', aggressive = 'aggressive' }
 
 	export interface Category {
 
@@ -87,7 +87,7 @@ export namespace My_Pet_Client {
 		requestId?: string;
 	}
 
-	export enum OrderStatus { placed = 0, approved = 1, delivered = 2 }
+	export enum OrderStatus { placed = 'placed', approved = 'approved', delivered = 'delivered' }
 
 	export interface Pet {
 
@@ -136,7 +136,7 @@ export namespace My_Pet_Client {
 		name?: string;
 	}
 
-	export enum PetStatus { available = 0, pending = 1, sold = 2 }
+	export enum PetStatus { available = 'available', pending = 'pending', sold = 'sold' }
 
 	export interface User {
 		id?: number;

@@ -10,6 +10,8 @@
 	"DataAnnotationsEnabled": true,
 	"DataAnnotationsToComments": true,
 	"HandleHttpRequestHeaders": true,
+	"UseNullableQuestionMark": true,
+	"EnumToString": true,
 
 	"Plugins": [
 		{
