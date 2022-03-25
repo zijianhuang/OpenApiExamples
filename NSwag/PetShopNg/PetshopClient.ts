@@ -13,11 +13,11 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, OpaqueToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-namespace MyNs {
+namespace MyNS {
 export const API_BASE_URL = new OpaqueToken('API_BASE_URL');
 
 @Injectable()
-export class Client {
+export class MyClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;

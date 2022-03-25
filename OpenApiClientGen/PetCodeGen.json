@@ -1,7 +1,7 @@
 {
-	"ClientNamespace": "My.Pet.Client",
+	"ClientNamespace": "MyNS",
 	"ClientLibraryProjectFolderName": "./PetShopCSharp",
-	"ContainerClassName": "PetClient",
+	"ContainerClassName": "MyClient",
 	"ClientLibraryFileName": "PetAuto.cs",
 	"ActionNameStrategy": 4,
 	"UseEnsureSuccessStatusCodeEx": true,
