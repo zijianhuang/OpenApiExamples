@@ -1,14 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import * as namespaces from '../clientapi/ClientApiAuto';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import * as namespaces from '../clientapi/ClientApiAuto';
+
 import MyClient = namespaces.MyNS.MyClient; 
 
 export function myClientFactory(http: HttpClient) {
-	return new namespaces.MyNS.MyClient('http://somewhere.com/', http);
+	//return new namespaces.MyNS.MyClient('http://somewhere.com/', http); //for OpenApiClientGen
+	return new namespaces.MyNS.MyClient(http, 'http://somewhere.com/'); //for NSwag
 }
 
 
