@@ -120,5 +120,8 @@
         }
       }
     }},
-  "defaultProject": "oacg-demo"
+  "defaultProject": "oacg-demo",
+  "cli": {
+    "analytics": false
+  }
 }

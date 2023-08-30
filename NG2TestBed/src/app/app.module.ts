@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import MyClient = namespaces.MyNS.MyClient; 
 
 export function myClientFactory(http: HttpClient) {
-	//return new namespaces.MyNS.MyClient('http://somewhere.com/', http); //for OpenApiClientGen
-	return new namespaces.MyNS.MyClient(http, 'http://somewhere.com/'); //for NSwag
+	return new namespaces.MyNS.MyClient('http://somewhere.com/', http); //for OpenApiClientGen
+	//return new namespaces.MyNS.MyClient(http, 'http://somewhere.com/'); //for NSwag
 }
 
 

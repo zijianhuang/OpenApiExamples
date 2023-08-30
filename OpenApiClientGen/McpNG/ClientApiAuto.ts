@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-export namespace APS_Mcp_Proxy {
+export namespace MyNS {
 	export interface BBSReportRequestType {
 		payeeProvider: ProviderType;
 		claimId?: string;
@@ -637,7 +637,7 @@ export namespace APS_Mcp_Proxy {
 	}
 
 	@Injectable()
-	export class McpClient {
+	export class MyClient {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
 		}
 

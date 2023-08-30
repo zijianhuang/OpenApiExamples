@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace APS.Mcp.Proxy
+namespace MyNS
 {
 	using System;
 	using System.Linq;
@@ -2517,14 +2517,14 @@ namespace APS.Mcp.Proxy
 		public PaymentType PaymentInfo { get; set; }
 	}
 	
-	public partial class McpClient
+	public partial class MyClient
 	{
 		
 		private System.Net.Http.HttpClient client;
 		
 		private JsonSerializerSettings jsonSerializerSettings;
 		
-		public McpClient(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
+		public MyClient(System.Net.Http.HttpClient client, JsonSerializerSettings jsonSerializerSettings=null)
 		{
 			if (client == null)
 				throw new ArgumentNullException("Null HttpClient.", "client");
@@ -3853,6 +3853,43 @@ namespace APS.Mcp.Proxy
 				responseMessage.Dispose();
 			}
 			}
+			}
+		}
+	}
+}
+
+namespace Fonlow.Net.Http
+{
+	using System.Net.Http;
+
+	public class WebApiRequestException : HttpRequestException
+	{
+		public System.Net.HttpStatusCode StatusCode { get; private set; }
+
+		public string Response { get; private set; }
+
+		public System.Net.Http.Headers.HttpResponseHeaders Headers { get; private set; }
+
+		public System.Net.Http.Headers.MediaTypeHeaderValue ContentType { get; private set; }
+
+		public WebApiRequestException(string message, System.Net.HttpStatusCode statusCode, string response, System.Net.Http.Headers.HttpResponseHeaders headers, System.Net.Http.Headers.MediaTypeHeaderValue contentType) : base(message)
+		{
+			StatusCode = statusCode;
+			Response = response;
+			Headers = headers;
+			ContentType = contentType;
+		}
+	}
+
+	public static class ResponseMessageExtensions
+	{
+		public static void EnsureSuccessStatusCodeEx(this HttpResponseMessage responseMessage)
+		{
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				var responseText = responseMessage.Content.ReadAsStringAsync().Result;
+				var contentType = responseMessage.Content.Headers.ContentType;
+				throw new WebApiRequestException(responseMessage.ReasonPhrase, responseMessage.StatusCode, responseText, responseMessage.Headers, contentType);
 			}
 		}
 	}

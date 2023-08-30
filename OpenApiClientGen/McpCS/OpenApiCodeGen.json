@@ -1,0 +1,27 @@
+{
+	"ClientNamespace": "MyNS",
+	"ClientLibraryProjectFolderName": "",
+	"ContainerClassName": "MyClient",
+	"PathPrefixToRemove": "/mcp",
+	"ClientLibraryFileName": "McpAuto.cs",
+	"ActionNameStrategy": 4,
+	"UseEnsureSuccessStatusCodeEx": true,
+	"IncludeEnsureSuccessStatusCodeExBlock": true,
+	"DecorateDataModelWithDataContract": true,
+	"DataContractNamespace": "http://mcp.medilink/03/2020",
+	"DataAnnotationsEnabled": true,
+	"DataAnnotationsToComments": true,
+	"EnumToString": true,
+	"UseNullableQuestionMark": true,
+	"HandleHttpRequestHeaders": true,
+
+	"Plugins": [
+		{
+			"AssemblyName": "Fonlow.OpenApiClientGen.NG2",
+			"TargetDir": "C:/VSProjects/OpenSource/OpenApiExamples/OpenApiClientGen/McpNG",
+			"TSFile": "ClientApiAuto.ts",
+			"AsModule": true,
+			"ContentType": "application/json;charset=UTF-8"
+		}
+	]
+}
