@@ -1,248 +1,680 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-export namespace MyNS {
+export namespace APS_Mcp_Proxy {
 	export interface BBSReportRequestType {
+
+		/** Required */
 		payeeProvider: ProviderType;
-		claimId?: string;
-		lodgementDate?: Date;
+
+		/**
+		 * Max length: 6
+		 * Min length: 6
+		 */
+		claimId?: string | null;
+		lodgementDate?: Date | null;
 	}
 
 	export interface ProviderType {
+
+		/**
+		 * Required
+		 * Max length: 8
+		 * Min length: 8
+		 */
 		providerNumber: string;
 	}
 
 	export interface BBSPaymentReportResponseType {
 		paymentRun?: PaymentRunType;
 		paymentInfo?: PaymentType;
+
+		/** Minimum items: 1 */
 		claimSummary?: Array<ClaimSummaryType>;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface PaymentRunType {
-		payerName?: string;
-		runDate?: Date;
-		runNumber?: string;
+		payerName?: string | null;
+		runDate?: Date | null;
+		runNumber?: string | null;
 	}
 
 	export interface PaymentType {
+
+		/** Required */
 		accountInfo: BankAccountType;
-		depositAmount?: string;
-		paymentReference?: string;
+		depositAmount?: string | null;
+		paymentReference?: string | null;
 	}
 
 	export interface BankAccountType {
-		accountName?: string;
-		accountNumber?: string;
-		bsbCode?: string;
+
+		/**
+		 * Max length: 30
+		 * Min length: 1
+		 */
+		accountName?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		accountNumber?: string | null;
+
+		/**
+		 * Max length: 6
+		 * Min length: 6
+		 */
+		bsbCode?: string | null;
 	}
 
 	export interface ClaimSummaryType {
-		accountReferenceId?: string;
-		benefit?: string;
-		chargeAmount?: string;
-		claimChannelCode?: string;
-		claimId?: string;
-		lodgementDate?: Date;
-		transactionId?: string;
+		accountReferenceId?: string | null;
+		benefit?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		claimChannelCode?: string | null;
+		claimId?: string | null;
+		lodgementDate?: Date | null;
+		transactionId?: string | null;
 	}
 
 	export interface ServiceMessagesType {
+
+		/** Required */
 		highestSeverity: ServiceMessagesTypeHighestSeverity;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		serviceMessage: Array<ServiceMessageType>;
 	}
 
 	export enum ServiceMessagesTypeHighestSeverity { Fatal = 'Fatal', Error = 'Error', Warning = 'Warning', Informational = 'Informational' }
 
 	export interface ServiceMessageType {
+
+		/** Required */
 		code: string;
+
+		/** Required */
 		severity: ServiceMessagesTypeHighestSeverity;
+
+		/** Required */
 		reason: string;
 	}
 
 	export interface BBSProcessingReportResponseType {
 		claimAssessment?: ClaimAssessmentType;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface ClaimAssessmentType {
+
+		/** Minimum items: 1 */
 		medicalEvent?: Array<MedicalEventResponseType>;
 		serviceProvider?: ProviderType;
-		benefitPaid?: string;
-		chargeAmount?: string;
-		claimId?: string;
+		benefitPaid?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		claimId?: string | null;
 	}
 
 	export interface MedicalEventResponseType {
 		patient?: MembershipStatusType;
+
+		/** Minimum items: 1 */
 		service?: Array<ServiceResponseType>;
-		id?: string;
-		eventDate?: Date;
+		id?: string | null;
+		eventDate?: Date | null;
 	}
 
 	export interface MembershipStatusType {
 		status?: StatusType;
 		currentMembership?: MembershipType;
 		currentMember?: IdentityType;
-		processDate?: Date;
+		processDate?: Date | null;
 	}
 
 	export interface StatusType {
-		code?: number;
-		text?: string;
+		code?: number | null;
+		text?: string | null;
 	}
 
 	export interface MembershipType {
-		memberNumber?: string;
-		memberRefNumber?: string;
+
+		/**
+		 * Max length: 10
+		 * Min length: 10
+		 */
+		memberNumber?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		memberRefNumber?: string | null;
 	}
 
 	export interface IdentityType {
-		dateOfBirth?: Date;
-		familyName?: string;
-		givenName?: string;
-		secondInitial?: string;
-		sex?: string;
+		dateOfBirth?: Date | null;
+		familyName?: string | null;
+		givenName?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		secondInitial?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		sex?: string | null;
 	}
 
 	export interface ServiceResponseType {
 		error?: StatusType;
-		id?: string;
-		assessmentCode?: string;
-		benefitPaid?: string;
-		chargeAmount?: string;
-		itemNumber?: string;
-		numberOfPatientsSeen?: string;
+		id?: string | null;
+		assessmentCode?: string | null;
+		benefitPaid?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		itemNumber?: string | null;
+		numberOfPatientsSeen?: string | null;
 	}
 
 	export interface BulkBillStoreForwardRequestType {
+
+		/** Required */
 		claim: BulkBillClaimStoreForwardClaimType;
 	}
 
 	export interface BulkBillClaimStoreForwardClaimType {
-		facilityId?: string;
-		hospitalInd?: string;
+
+		/**
+		 * Max length: 8
+		 * Min length: 8
+		 */
+		facilityId?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		hospitalInd?: string | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		medicalEvent: Array<BBSMedicalEventType>;
 		payeeProvider?: ProviderType;
+
+		/** Required */
 		serviceProvider: ProviderType;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		serviceTypeCode: string;
 	}
 
 	export interface BBSMedicalEventType {
+
+		/**
+		 * Required
+		 * Max length: 2
+		 * Min length: 2
+		 */
 		id: string;
+
+		/** Required */
 		authorisationDate: Date;
+
+		/** Required */
 		createDateTime: Date;
+
+		/** Required */
 		medicalEventDate: Date;
-		medicalEventTime?: string;
+		medicalEventTime?: string | null;
+
+		/** Required */
 		patient: MedicarePatientType;
 		referral?: ReferralType;
-		referralOverrideCode?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		referralOverrideCode?: string | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		service: Array<ServiceType>;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		submissionAuthorityInd: string;
 	}
 
 	export interface MedicarePatientType {
+
+		/** Required */
 		identity: IdentityType;
+
+		/** Required */
 		medicare: MembershipType;
 	}
 
 	export interface ReferralType {
+
+		/** Required */
 		issueDate: Date;
-		period?: string;
-		periodCode?: string;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		period?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		periodCode?: string | null;
+
+		/** Required */
 		provider: ProviderType;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		typeCode: string;
 	}
 
 	export interface ServiceType {
+
+		/**
+		 * Required
+		 * Max length: 4
+		 * Min length: 4
+		 */
 		id: string;
-		accessionDateTime?: Date;
-		aftercareOverrideInd?: string;
-		chargeAmount?: string;
-		collectionDateTime?: Date;
-		duplicateServiceOverrideInd?: string;
-		fieldQuantity?: string;
-		itemNumber?: string;
-		lspNumber?: string;
-		multipleProcedureOverrideInd?: string;
-		numberOfPatientsSeen?: string;
-		restrictiveOverrideCode?: string;
-		rule3ExemptInd?: string;
-		s4b3ExemptInd?: string;
-		scpId?: string;
-		selfDeemedCode?: string;
-		text?: string;
-		timeDuration?: string;
+		accessionDateTime?: Date | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		aftercareOverrideInd?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		collectionDateTime?: Date | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		duplicateServiceOverrideInd?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		fieldQuantity?: string | null;
+
+		/**
+		 * Max length: 5
+		 * Min length: 1
+		 */
+		itemNumber?: string | null;
+
+		/**
+		 * Max length: 6
+		 * Min length: 1
+		 */
+		lspNumber?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		multipleProcedureOverrideInd?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		numberOfPatientsSeen?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 2
+		 */
+		restrictiveOverrideCode?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		rule3ExemptInd?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		s4b3ExemptInd?: string | null;
+
+		/**
+		 * Max length: 5
+		 * Min length: 3
+		 */
+		scpId?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		selfDeemedCode?: string | null;
+		text?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 3
+		 */
+		timeDuration?: string | null;
 	}
 
 	export interface BulkBillStoreForwardResponseType {
+
+		/** Required */
 		claimId: string;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface AlliedHealthClaimRequestType {
+
+		/** Required */
 		claim: VAAClaimType;
 	}
 
 	export interface VAAClaimType {
-		hospitalInd?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		hospitalInd?: string | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		medicalEvent: Array<VAAMedicalEventType>;
 		payeeProvider?: ProviderType;
+
+		/** Required */
 		serviceProvider: ProviderType;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		serviceTypeCode: string;
 	}
 
 	export interface VAAMedicalEventType {
+
+		/**
+		 * Required
+		 * Max length: 2
+		 * Min length: 2
+		 */
 		id: string;
 		acceptedDisability?: AcceptedDisabilityType;
+
+		/** Required */
 		authorisationDate: Date;
-		breakInEpisodeEndDate?: Date;
-		breakInEpisodeOfCareNumber?: string;
-		breakInEpisodeStartDate?: Date;
-		numberOfCNCHours?: string;
-		numberOfCNCVisits?: string;
+		breakInEpisodeEndDate?: Date | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		breakInEpisodeOfCareNumber?: string | null;
+		breakInEpisodeStartDate?: Date | null;
+
+		/**
+		 * Max length: 5
+		 * Min length: 1
+		 */
+		numberOfCNCHours?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 1
+		 */
+		numberOfCNCVisits?: string | null;
+
+		/** Required */
 		createDateTime: Date;
-		numberOfENHours?: string;
-		numberOfENVisits?: string;
-		facilityId?: string;
+
+		/**
+		 * Max length: 5
+		 * Min length: 1
+		 */
+		numberOfENHours?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 1
+		 */
+		numberOfENVisits?: string | null;
+
+		/**
+		 * Max length: 8
+		 * Min length: 8
+		 */
+		facilityId?: string | null;
+
+		/** Required */
 		medicalEventDate: Date;
-		medicalEventTime?: string;
-		numberOfNSSHours?: string;
-		numberOfNSSVisits?: string;
+		medicalEventTime?: string | null;
+
+		/**
+		 * Max length: 5
+		 * Min length: 1
+		 */
+		numberOfNSSHours?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 1
+		 */
+		numberOfNSSVisits?: string | null;
+
+		/** Required */
 		patient: VeteranPatientType;
 		referral?: ReferralType;
-		referralOverrideCode?: string;
-		numberOfRNHours?: string;
-		numberOfRNVisits?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		referralOverrideCode?: string | null;
+
+		/**
+		 * Max length: 5
+		 * Min length: 1
+		 */
+		numberOfRNHours?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 1
+		 */
+		numberOfRNVisits?: string | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		service: Array<VAAServiceType>;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		submissionAuthorityInd: string;
 	}
 
 	export interface AcceptedDisabilityType {
+
+		/** Required */
 		code: string;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		ind: string;
 	}
 
 	export interface VAAServiceType {
+
+		/**
+		 * Required
+		 * Max length: 4
+		 * Min length: 4
+		 */
 		id: string;
-		accountReferenceNumber?: string;
-		admissionDate?: Date;
-		chargeAmount?: string;
-		dischargeDate?: Date;
-		distanceKilometres?: number;
-		duplicateServiceOverrideInd?: string;
+
+		/**
+		 * Max length: 8
+		 * Min length: 1
+		 */
+		accountReferenceNumber?: string | null;
+		admissionDate?: Date | null;
+
+		/**
+		 * Max length: 7
+		 * Min length: 3
+		 */
+		chargeAmount?: string | null;
+		dischargeDate?: Date | null;
+		distanceKilometres?: number | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		duplicateServiceOverrideInd?: string | null;
+
+		/**
+		 * Required
+		 * Max length: 5
+		 * Min length: 1
+		 */
 		itemNumber: string;
-		multipleProcedureOverrideInd?: string;
-		numberOfPatientsSeen?: string;
-		numberOfTeeth?: string;
-		opticalScriptCode?: string;
-		restrictiveOverrideCode?: string;
-		secondDeviceInd?: string;
-		selfDeemedCode?: string;
-		text?: string;
-		timeDuration?: string;
-		toothNumber?: string;
-		upperLowerJawCode?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		multipleProcedureOverrideInd?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		numberOfPatientsSeen?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		numberOfTeeth?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		opticalScriptCode?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 2
+		 */
+		restrictiveOverrideCode?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		secondDeviceInd?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		selfDeemedCode?: string | null;
+		text?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 3
+		 */
+		timeDuration?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 2
+		 */
+		toothNumber?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 3
+		 */
+		upperLowerJawCode?: string | null;
 	}
 
 	export interface VeteranPatientType extends PatientType {
@@ -250,165 +682,327 @@ export namespace MyNS {
 	}
 
 	export interface VeteranMembershipType {
+
+		/**
+		 * Required
+		 * Max length: 9
+		 * Min length: 3
+		 */
 		veteranNumber: string;
 	}
 
 	export interface PatientType {
+
+		/** Required */
 		identity: IdentityType;
 		residentialAddress?: AddressType;
 	}
 
 	export interface AddressType {
-		addressLineOne?: string;
-		addressLineTwo?: string;
-		locality?: string;
-		postcode?: string;
+
+		/**
+		 * Max length: 40
+		 * Min length: 1
+		 */
+		addressLineOne?: string | null;
+
+		/**
+		 * Max length: 40
+		 * Min length: 1
+		 */
+		addressLineTwo?: string | null;
+
+		/**
+		 * Max length: 40
+		 * Min length: 1
+		 */
+		locality?: string | null;
+
+		/**
+		 * Max length: 4
+		 * Min length: 4
+		 */
+		postcode?: string | null;
 	}
 
 	export interface AlliedHealthClaimResponseType {
+
+		/** Required */
 		claimId: string;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface DVAClaimRequestType {
+
+		/** Required */
 		claim: DVAClaimType;
 	}
 
 	export interface DVAClaimType {
-		hospitalInd?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		hospitalInd?: string | null;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		serviceTypeCode: string;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		medicalEvent: Array<DVAMedicalEventType>;
+
+		/** Required */
 		serviceProvider: ProviderType;
 		payeeProvider?: ProviderType;
 	}
 
 	export interface DVAMedicalEventType {
+
+		/**
+		 * Required
+		 * Max length: 2
+		 * Min length: 2
+		 */
 		id: string;
+
+		/** Required */
 		authorisationDate: Date;
+
+		/** Required */
 		createDateTime: Date;
-		facilityId?: string;
+
+		/**
+		 * Max length: 8
+		 * Min length: 8
+		 */
+		facilityId?: string | null;
+
+		/** Required */
 		medicalEventDate: Date;
-		medicalEventTime?: string;
-		referralOverrideCode?: string;
+		medicalEventTime?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		referralOverrideCode?: string | null;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		submissionAuthorityInd: string;
-		treatmentLocationCode?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		treatmentLocationCode?: string | null;
 		acceptedDisability?: AcceptedDisabilityType;
 		referral?: ReferralType;
+
+		/** Required */
 		patient: VeteranPatientType;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		service: Array<DVAServiceType>;
 	}
 
 	export interface DVAServiceType extends ServiceType {
-		accountReferenceNumber?: string;
-		distanceKilometres?: number;
+
+		/**
+		 * Max length: 8
+		 * Min length: 1
+		 */
+		accountReferenceNumber?: string | null;
+		distanceKilometres?: number | null;
 	}
 
 	export interface DVAClaimResponseType {
+
+		/** Required */
 		claimId: string;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface DVAReportRequestType {
+
+		/** Required */
 		payeeProvider: ProviderType;
-		claimId?: string;
-		lodgementDate?: Date;
+
+		/**
+		 * Max length: 6
+		 * Min length: 6
+		 */
+		claimId?: string | null;
+		lodgementDate?: Date | null;
 	}
 
 	export interface DVAPaymentReportResponseType {
 		paymentRun?: PaymentRunType;
 		paymentInfo?: PaymentType;
+
+		/** Minimum items: 1 */
 		claimSummary?: Array<ClaimSummaryType>;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface DVAProcessingReportResponseType {
 		claimAssessment?: DVAClaimAssessmentType;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface DVAClaimAssessmentType {
+
+		/** Minimum items: 1 */
 		medicalEvent?: Array<DVAMedicalEventAssessmentType>;
 		serviceProvider?: ProviderType;
-		benefitPaid?: string;
-		chargeAmount?: string;
-		claimId?: string;
+		benefitPaid?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		claimId?: string | null;
 	}
 
 	export interface DVAMedicalEventAssessmentType {
 		patient?: VeteranMembershipStatusType;
+
+		/** Minimum items: 1 */
 		service?: Array<DVAServiceAssessmentType>;
-		id?: string;
-		eventDate?: Date;
+		id?: string | null;
+		eventDate?: Date | null;
 	}
 
 	export interface VeteranMembershipStatusType {
 		currentMembership?: VeteranMembershipResponseType;
 		currentMember?: IdentityType;
 		status?: StatusType;
-		processDate?: Date;
+		processDate?: Date | null;
 	}
 
 	export interface DVAServiceAssessmentType {
-		id?: string;
-		accountReferenceNumber?: string;
-		assessmentCode?: string;
-		benefitPaid?: string;
-		chargeAmount?: string;
-		gstInd?: string;
-		itemNumber?: string;
-		numberOfPatientsSeen?: string;
+		id?: string | null;
+		accountReferenceNumber?: string | null;
+		assessmentCode?: string | null;
+		benefitPaid?: string | null;
+
+		/**
+		 * Max length: 9
+		 * Min length: 1
+		 */
+		chargeAmount?: string | null;
+		gstInd?: string | null;
+		itemNumber?: string | null;
+		numberOfPatientsSeen?: string | null;
 	}
 
 	export interface VeteranMembershipResponseType extends VeteranMembershipType {
-		entitlementCode?: string;
+		entitlementCode?: string | null;
 	}
 
 	export interface EnterpriseConcessionVerificationRequestType {
-		timeout?: number;
+		timeout?: number | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		concessionVerificationRequest: Array<ReferenceConcessionVerificationRequestType>;
 	}
 
 	export interface ReferenceConcessionVerificationRequestType extends ConcessionVerificationRequestType {
+
+		/** Required */
 		id: string;
 	}
 
 	export interface ConcessionVerificationRequestType {
+
+		/** Required */
 		patient: MedicarePatientType;
-		dateOfService?: Date;
+		dateOfService?: Date | null;
 	}
 
 	export interface EnterpriseConcessionVerificationResponseType {
+
+		/** Required */
 		status: string;
+
+		/** Minimum items: 1 */
 		concessionVerificationResponse?: Array<ReferenceConcessionVerificationResponseType>;
 	}
 
 	export interface ReferenceConcessionVerificationResponseType extends ConcessionVerificationResponseType {
+
+		/** Required */
 		id: string;
 	}
 
 	export interface ConcessionVerificationResponseType {
+
+		/** Required */
 		medicareStatus: MembershipStatusType;
+
+		/** Required */
 		concessionStatus: ConcessionStatusType;
 	}
 
 	export interface ConcessionStatusType {
 		status?: StatusType;
-		processDate?: Date;
+		processDate?: Date | null;
 	}
 
 	export interface EnterprisePatientVerificationRequestType {
-		timeout?: number;
+		timeout?: number | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		patientVerificationRequest: Array<ReferencePatientVerificationRequestType>;
 	}
 
 	export interface ReferencePatientVerificationRequestType extends PatientVerificationRequestType {
+
+		/** Required */
 		id: string;
 	}
 
 	export interface PatientVerificationRequestType {
+
+		/** Required */
 		patient: FundPatientType;
 		provider?: ProviderType;
-		dateOfService?: Date;
+		dateOfService?: Date | null;
+
+		/**
+		 * Required
+		 * Max length: 3
+		 * Min length: 3
+		 */
 		typeCode: string;
 	}
 
@@ -419,17 +1013,38 @@ export namespace MyNS {
 	}
 
 	export interface FundMembershipType {
-		memberNumber?: string;
-		memberRefNumber?: string;
-		organisation?: string;
+
+		/**
+		 * Max length: 19
+		 * Min length: 1
+		 */
+		memberNumber?: string | null;
+
+		/**
+		 * Max length: 2
+		 * Min length: 1
+		 */
+		memberRefNumber?: string | null;
+
+		/**
+		 * Max length: 3
+		 * Min length: 3
+		 */
+		organisation?: string | null;
 	}
 
 	export interface EnterprisePatientVerificationResponseType {
+
+		/** Required */
 		status: string;
+
+		/** Minimum items: 1 */
 		patientVerificationResponse?: Array<ReferencePatientVerificationResponseType>;
 	}
 
 	export interface ReferencePatientVerificationResponseType extends PatientVerificationResponseType {
+
+		/** Required */
 		id: string;
 	}
 
@@ -442,29 +1057,42 @@ export namespace MyNS {
 		status?: StatusType;
 		currentMembership?: FundMembershipType;
 		currentMember?: IdentityType;
-		processDate?: Date;
+		processDate?: Date | null;
 	}
 
 	export interface EnterpriseVeteranVerificationRequestType {
-		timeout?: number;
+		timeout?: number | null;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		veteranVerificationRequest: Array<ReferenceVeteranVerificationRequestType>;
 	}
 
 	export interface ReferenceVeteranVerificationRequestType extends VeteranVerificationRequestType {
+
+		/** Required */
 		id: string;
 	}
 
 	export interface VeteranVerificationRequestType {
+
+		/** Required */
 		patient: VeteranPatientType;
 	}
 
 	export interface EnterpriseVeteranVerificationResponseType {
+
+		/** Required */
 		status: string;
+
+		/** Minimum items: 1 */
 		veteranVerificationResponse?: Array<ReferenceVeteranVerificationResponseType>;
 	}
 
 	export interface ReferenceVeteranVerificationResponseType extends VeteranVerificationResponseType {
-		id?: string;
+		id?: string | null;
 	}
 
 	export interface VeteranVerificationResponseType {
@@ -472,34 +1100,94 @@ export namespace MyNS {
 	}
 
 	export interface PatientClaimInteractiveRequestType {
+
+		/** Required */
 		patientClaimInteractive: PatientClaimInteractiveType;
 	}
 
 	export interface PatientClaimInteractiveType {
+
+		/** Required */
 		patient: MedicarePatientType;
 		referral?: ReferralType;
+
+		/** Required */
 		claimant: ClaimantType;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		medicalEvent: Array<PCIMedicalEventType>;
 		payeeProvider?: ProviderType;
+
+		/** Required */
 		serviceProvider: ProviderType;
-		referralOverrideCode?: string;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		referralOverrideCode?: string | null;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		accountPaidInd: string;
-		accountReferenceId?: string;
+		accountReferenceId?: string | null;
+
+		/**
+		 * Required
+		 * Max length: 1
+		 * Min length: 1
+		 */
 		submissionAuthorityInd: string;
+
+		/** Required */
 		authorisationDate: Date;
 	}
 
 	export interface PCIMedicalEventType {
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		service: Array<PCIServiceType>;
+
+		/**
+		 * Required
+		 * Max length: 2
+		 * Min length: 2
+		 */
 		id: string;
+
+		/** Required */
 		medicalEventDate: Date;
-		medicalEventTime?: string;
+		medicalEventTime?: string | null;
 	}
 
 	export interface PCIServiceType extends ServiceType {
-		patientContribAmount?: string;
-		facilityId?: string;
-		hospitalInd?: string;
+
+		/**
+		 * Max length: 7
+		 * Min length: 3
+		 */
+		patientContribAmount?: string | null;
+
+		/**
+		 * Max length: 8
+		 * Min length: 8
+		 */
+		facilityId?: string | null;
+
+		/**
+		 * Max length: 1
+		 * Min length: 1
+		 */
+		hospitalInd?: string | null;
 	}
 
 	export interface ClaimantType extends MedicarePatientType {
@@ -509,45 +1197,74 @@ export namespace MyNS {
 	}
 
 	export interface ContactType {
-		emailAddress?: string;
-		name?: string;
-		phoneNumber?: string;
+
+		/**
+		 * Max length: 128
+		 * Min length: 5
+		 */
+		emailAddress?: string | null;
+		name?: string | null;
+
+		/**
+		 * Max length: 19
+		 * Min length: 8
+		 */
+		phoneNumber?: string | null;
 	}
 
 	export interface PatientClaimInteractiveResponseType {
+
+		/** Required */
 		claimAssessment: PCIAssessmentType;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface PCIAssessmentType {
 		claimant?: CurrentMembershipType;
 		patient?: CurrentMembershipType;
+
+		/** Minimum items: 1 */
 		medicalEvent?: Array<PCIMedicalEventResponseType>;
 		error?: StatusType;
+
+		/** Required */
 		claimId: string;
 	}
 
 	export interface CurrentMembershipType {
+
+		/** Required */
 		currentMembership: MembershipType;
 	}
 
 	export interface PCIMedicalEventResponseType {
+
+		/** Minimum items: 1 */
 		service?: Array<ServiceResponseType>;
-		eventDate?: Date;
-		id?: string;
+		eventDate?: Date | null;
+		id?: string | null;
 	}
 
 	export interface RetrieveReportRequestType {
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		transactionId: Array<string>;
 	}
 
 	export interface RetrieveReportResponseType {
+
+		/** Minimum items: 1 */
 		content?: Array<ContentType>;
 	}
 
 	export interface ContentType {
-		transactionId?: string;
-		status?: string;
+		transactionId?: string | null;
+		status?: string | null;
 	}
 
 	export interface EnterpriseConcessionVerificationReportContentType extends ContentType {
@@ -563,59 +1280,93 @@ export namespace MyNS {
 	}
 
 	export interface SameDayDeleteRequestType {
+
+		/** Required */
 		sameDayDelete: SameDayDeleteType;
 	}
 
 	export interface SameDayDeleteType {
+
+		/** Required */
 		patient: MedicarePatientType;
+
+		/**
+		 * Required
+		 * Max length: 3
+		 * Min length: 3
+		 */
 		reasonCode: string;
 	}
 
 	export interface SameDayDeleteResponseType {
+
+		/** Required */
 		status: string;
 	}
 
 	export interface StatusReportRequestType {
+
+		/** Minimum items: 1 */
 		transactionId?: Array<string>;
-		associateName?: string;
-		fromDateTime?: Date;
-		toDateTime?: Date;
-		reportStatus?: string;
-		requestTransmissionType?: string;
-		status?: string;
+		associateName?: string | null;
+		fromDateTime?: Date | null;
+		toDateTime?: Date | null;
+		reportStatus?: string | null;
+		requestTransmissionType?: string | null;
+		status?: string | null;
 	}
 
 	export interface StatusReportResponseType {
+
+		/** Minimum items: 1 */
 		transactionStatus?: Array<TransactionStatusType>;
+
+		/** Required */
 		status: string;
 	}
 
 	export interface TransactionStatusType {
-		associateName?: string;
-		lodgementDateTime?: Date;
-		processStatus?: string;
-		reference?: string;
-		reportStatus?: string;
-		requestTransmissionType?: string;
-		transactionId?: string;
+		associateName?: string | null;
+		lodgementDateTime?: Date | null;
+		processStatus?: string | null;
+		reference?: string | null;
+		reportStatus?: string | null;
+		requestTransmissionType?: string | null;
+		transactionId?: string | null;
 	}
 
 	export interface BulkBillEasyclaimIntegratedReportRequestType {
+
+		/** Required */
 		payeeProvider: ProviderType;
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		transactionId: Array<string>;
 	}
 
 	export interface BulkBillEasyclaimIntegratedReportResponseType {
+
+		/**
+		 * Required
+		 * Minimum items: 1
+		 */
 		report: Array<BulkBillEasyclaimReportType>;
 	}
 
 	export interface BulkBillEasyclaimReportType {
+
+		/** Required */
 		transactionId: string;
+
+		/** Required */
 		status: string;
-		claimId?: string;
-		dateOfLodgement?: Date;
-		benefitPaid?: string;
-		chargeAmount?: string;
+		claimId?: string | null;
+		dateOfLodgement?: Date | null;
+		benefitPaid?: string | null;
+		chargeAmount?: string | null;
 		payeeProvider?: ProviderType;
 		processingReport?: BbeProcessingReportType;
 		paymentReport?: BbePaymentReportType;
@@ -624,11 +1375,13 @@ export namespace MyNS {
 	export interface BbeProcessingReportType {
 		patient?: MembershipStatusType;
 		serviceProvider?: ProviderType;
+
+		/** Minimum items: 1 */
 		service?: Array<BbeServiceReportType>;
 	}
 
 	export interface BbeServiceReportType extends ServiceResponseType {
-		dateOfService?: Date;
+		dateOfService?: Date | null;
 	}
 
 	export interface BbePaymentReportType {
@@ -637,7 +1390,7 @@ export namespace MyNS {
 	}
 
 	@Injectable()
-	export class MyClient {
+	export class McpClient {
 		constructor(@Inject('baseUri') private baseUri: string = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/', private http: HttpClient) {
 		}
 
